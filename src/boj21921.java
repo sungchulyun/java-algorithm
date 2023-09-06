@@ -6,41 +6,40 @@ import java.util.StringTokenizer;
 public class boj21921 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int x = Integer.parseInt(st.nextToken());
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int[] arr = new int[n];
+        int N = Integer.parseInt(st.nextToken());
+        int X = Integer.parseInt(st.nextToken());
+        int[] visitors = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i =0 ; i < n; i++){
-            arr[i] = Integer.parseInt(st.nextToken());
+
+        for(int i = 0; i < N; i++){
+            visitors[i] = Integer.parseInt(st.nextToken());
         }
+
         int sum = 0;
-
-        int maxcnt = 1;
-        for(int i = 0; i < x; i++){
-            sum += arr[i];
+        for(int i = 0; i < X; i++){
+            sum += visitors[i];
         }
 
+        int cnt = 1;
         int max = sum;
-        for(int i = x; i < n; i++){
-            sum += arr[i] - arr[i - x];
 
-            if(sum == max){
-                maxcnt++;
-            } else if(sum > max){
+        for(int i = X; i < N; i++){
+            sum += visitors[i] - visitors[i - X];
+
+            if(max < sum){
                 max = sum;
-                maxcnt = 1;
+                cnt = 1;
+            } else if(max == sum){
+                cnt++;
             }
         }
         if(max == 0){
             System.out.println("SAD");
             return;
         }
-        System.out.println(max);
-        System.out.println(maxcnt);
-
+        System.out.println(max + "\n" + cnt);
     }
 }
