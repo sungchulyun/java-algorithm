@@ -8,30 +8,25 @@ public class boj1940 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine());
-        int M = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
 
-        int[] arr = new int[N];
+        int[] arr = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        for(int i = 0; i < N; i++){
+        for(int i = 0; i < n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(arr);
-        int cnt = 0;
 
-        for(int i = 0; i < N; i++){
-            int now = arr[i];
-            int next = i + 1;
-
-            while(next < N){
-                int sum = now + arr[next++];
-                if(sum == M) {
-                    cnt++;
-                    break;
-                }
+        int answer = 0;
+        for(int i = 0; i < n; i++){
+            int now = i;
+            int next = i+1;
+            while(next <= n-1){
+                int sum = arr[now] + arr[next++];
+                if(sum == m)
+                    answer++;
             }
         }
-        System.out.println(cnt);
+        System.out.println(answer);
     }
 }
