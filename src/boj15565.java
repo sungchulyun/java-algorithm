@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class boj2559 {
-    static int max = Integer.MIN_VALUE;
+public class boj15565 {
+    static int[] check;
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -19,24 +19,23 @@ public class boj2559 {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int start = 0, end = 0, sum = 0;
-        int count = k;
+        check = new int[3];
+        int start = 0, end = 0;
+        int answer =0;
 
-        while(true){
-            if(count == 0) {
-                sum -= arr[start++];
-                count = k;
-            } else
-                sum += arr[end++];
-            if(end == n)
-                break;
-
-            System.out.println(start);
-            if(max < sum){
-                max = sum;
+        while(end < arr.length){
+            while(end < arr.length && check[arr[end]] < k){
+                check[arr[end]]++;
+                end++;
             }
-            count--;
+            int len = end - start;
+            answer = Math.max(answer, len);
+            check[arr[start]]--;
+            start++;
         }
-        System.out.println(max);
+        if(answer == 0)
+            System.out.println(-1);
+        else
+            System.out.println(answer);
     }
 }
