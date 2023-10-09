@@ -19,24 +19,33 @@ public class boj2559 {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int start = 0, end = 0, sum = 0;
-        int count = k;
+        int cnt = 0;
 
-        while(true){
-            if(count == 0) {
-                sum -= arr[start++];
-                count = k;
-            } else
-                sum += arr[end++];
-            if(end == n)
-                break;
+        int start = 1, end = k;
 
-            System.out.println(start);
-            if(max < sum){
-                max = sum;
-            }
-            count--;
-        }
+        int totalcnt = 0;
+        int currentSum = 0;
+
+       while(end < arr.length){
+           if(cnt == k){
+               totalcnt++;
+               max = Math.max(max, currentSum);
+
+               currentSum = 0;
+               cnt = 0;
+
+               start = totalcnt + 1;
+           } else {
+               currentSum += arr[start];
+
+               if(start == end){
+                   end++;
+               }
+               start++;
+
+               cnt++;
+           }
+       }
         System.out.println(max);
     }
 }
